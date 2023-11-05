@@ -9,14 +9,14 @@
 //----------------------------------------------------------------------------//
 
 //Import external wealth of nations dataset
-import excel using "$raw\EWN\EWN-dataset_12-2022.xlsx", sheet(Dataset) firstrow clear
+import excel using "$raw/EWN/EWN-dataset_12-2022.xlsx", sheet(Dataset) firstrow clear
 rename (Year IFS_Code Portfolioequityassets Portfolioequityliabilities Debtassets Debtliabilities Portfoliodebtassets Portfoliodebtliabilities Country GDPUS) (year source aequity lequity adebt ldebt aportif_debt lportif_debt country gdp_us) 
 gen ewn22 = 1
 drop if year < 2001
 keep year source country aequity adebt aportif_debt ewn22 lequity lportif_debt gdp_us
 
 *harmonise ifscode
-replace source = 371 if source == 379 //British Virgin Islands
+replace source = 371 if source == 379 // British Virgin Islands
 drop if country == "ECCU" | country == "Euro Area"
 
 preserve
@@ -35,8 +35,8 @@ preserve
 restore
 drop if source == 354 | source == 352
 append using `curacao'
-save "$work\data_ewn_update.dta", replace
+save "$work/data_ewn_update.dta", replace
 
 keep country source year gdp_us 
-save "$work\ewn_gdp.dta", replace
+save "$work/ewn_gdp.dta", replace
 //----------------------------------------------------------------------------//
