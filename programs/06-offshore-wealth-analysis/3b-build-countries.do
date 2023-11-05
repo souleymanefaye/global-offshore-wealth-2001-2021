@@ -127,7 +127,7 @@ forvalues i = 2001/2022 {
 			label var gdp "GDP, current prices"
 			label var year "Year"
 			label var country_name "Country"
-			label var iso3saver "Country ISO alpha-3 code"
+			label var iso3 "Country ISO alpha-3 code"
 			label var unit "Unit and currency"
 			label var indicator "Abbr. of location of offshore wealth"
 			label var label "Location of offshore wealth"
