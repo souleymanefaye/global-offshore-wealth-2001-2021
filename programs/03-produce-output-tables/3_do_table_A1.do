@@ -7,12 +7,12 @@
 
 clear
 set more off
-global myexcel "$tables\FGZ_Appendix_Tables_A1-A3.xlsx"
+global myexcel "$tables/FGZ_Appendix_Tables_A1-A3.xlsx"
 
 // Build table A1
 
 // Col. (1)
-use "$work\data_toteq_update.dta", clear
+use "$work/data_toteq_update.dta", clear
 replace sumeqasset = sumeqasset / 1000
 tabstat sumeqasset, by(year) stat(sum)
 return list
@@ -23,7 +23,7 @@ return list
 matrix sumeqasset = (r(Stat1) \ r(Stat2) \ r(Stat3)\ r(Stat4)\ r(Stat5) \ r(Stat6) \ r(Stat7)\ r(Stat8)\ r(Stat9) \ r(Stat10) \ r(Stat11) \ r(Stat12)\ r(Stat13)\r(Stat14) \ r(Stat15) \ r(Stat16)\ r(Stat17)\r(Stat18) \ r(Stat19) \ r(Stat20)\ r(Stat21))
 putexcel C34 = matrix(sumeqasset)
 
-use "$work\data_totdebt_update.dta", replace
+use "$work/data_totdebt_update.dta", replace
 collapse (sum) sumdebtasset, by(year)
 replace sumdebtasset = sumdebtasset/1000
 mkmat sumdebtasset
@@ -31,7 +31,7 @@ putexcel C57 = matrix(sumdebtasset)
 clear matrix
 
 // Col. (2), (3), (3b), (5), (6b), (7), (9), (10), (12)
-use "$work\data_full_matrices.dta", clear
+use "$work/data_full_matrices.dta", clear
 preserve
 collapse (sum) eqasset debtasset augmeqasset augmdebtasset, by(year source)
 keep if source == 9999 | source == 377 | source == 924 | source == 456 | source == 419 | source == 443 | source == 453 | source == 9994
@@ -94,7 +94,7 @@ collapse (sum) eqasset debtasset augmeqasset augmdebtasset, by(year)
 gen eq_corr_cpis = augmeqasset-eqasset
 gen debt_corr_cpis = augmdebtasset-debtasset
 keep *cpis year
-save "$work\cpis_correction.dta", replace
+save "$work/cpis_correction.dta", replace
 restore
 
 // minus augmented assets for CPIS-reporting countries for which corrections are reported individually
@@ -105,7 +105,7 @@ keep if source == 377 | source == 924
 collapse (sum) augmeqasset eqasset augmdebtasset debtasset, by(year)
 gen corr_eq = augmeqasset - eqasset
 gen corr_debt = augmdebtasset - debtasset
-merge 1:1 year using "$work\cpis_correction.dta"
+merge 1:1 year using "$work/cpis_correction.dta"
 drop _merge
 
 
@@ -120,7 +120,7 @@ putexcel G34 = matrix(eq_othercpis)
 putexcel G57 = matrix(debt_othercpis)
 
 // Col. (6): China reserves
-use "$work\data_full_matrices.dta", clear
+use "$work/data_full_matrices.dta", clear
 keep year totaleq_China_public totaldebt_China_public
 collapse (mean) totaleq_China_public totaldebt_China_public, by(year)
 replace totaleq_China_public = totaleq_China_public / 1000
@@ -149,7 +149,7 @@ replace other_private_eq = other_private_eq / 1000
 putexcel O34 = matrix(other_private_eq)
 
 
-use "$work\data_full_matrices.dta", clear
+use "$work/data_full_matrices.dta", clear
 // private debt assets EWN
 keep if cpis != 1 & source != 924 & source != 9994 & source != 449 & source != 453 & source != 456 & source != 466 & source != 429 & source != 433
 
