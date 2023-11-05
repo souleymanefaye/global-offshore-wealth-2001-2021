@@ -14,7 +14,7 @@
 // 1. bilateral portfolio assets from cpis
 //----------------------------------------------------------------------------//
 
-import delimited "$raw\CPIS_06-08-2023_11-40-56-69_timeSeries\CPIS_06-08-2023 11-40-56-69_timeSeries.csv", clear
+import delimited "$raw/CPIS_06-08-2023_11-40-56-69_timeSeries/CPIS_06-08-2023 11-40-56-69_timeSeries.csv", clear
 // prepare dataset
  // keep total equity and total debt liabilities
  keep if indicatorcode == "I_L_D_T_T_BP6_DV_USD" | indicatorcode == "I_L_E_T_T_BP6_DV_USD"
@@ -47,7 +47,7 @@ import delimited "$raw\CPIS_06-08-2023_11-40-56-69_timeSeries\CPIS_06-08-2023 11
 	preserve
 		//collapse 2 host lines for Curacao and Sint Maarten into one
 		keep if host == 354 | host == 352
-		replace host = 355 /*Curacao and Sint Maarten*/
+		replace host = 355 /* Curacao and Sint Maarten */
 		collapse (first) hostname sourcename (sum) debtasset eqasset, by(host source year)
 		replace hostname = "Curacao and Sint Maarten"
 		tempfile cpis_curacao_bil_host
@@ -64,7 +64,7 @@ import delimited "$raw\CPIS_06-08-2023_11-40-56-69_timeSeries\CPIS_06-08-2023 11
  drop if source == source[_n-1]
  keep source
  gen cpis = 1
- save "$work\cpis_source.dta", replace
+ save "$work/cpis_source.dta", replace
  restore
 
 	// Duplicate all relationships that exist as host source also as source host
@@ -87,7 +87,7 @@ import delimited "$raw\CPIS_06-08-2023_11-40-56-69_timeSeries\CPIS_06-08-2023 11
 	restore	
 	append using `missing_relationships_append'
 
-save "$work\cpis_merge.dta", replace
+save "$work/cpis_merge.dta", replace
 
 
 
@@ -97,13 +97,13 @@ save "$work\cpis_merge.dta", replace
 use "$raw\Gravity_dta_V202211\Gravity_V202211.dta", clear
 // prepare data
 rename country_id_d country_id
-merge m:1 country_id using "$raw\Gravity_dta_V202211\Countries_V202211.dta"
+merge m:1 country_id using "$raw/Gravity_dta_V202211/Countries_V202211.dta"
 drop _merge
 rename (country_id country) (country_id_d countryname_d)
 drop if last_year<2001
 keep year country_id_o country_id_d iso3_o iso3_d country_exists_o country_exists_d dist comlang_off col45 pop_o pop_d countryname*
 rename country_id_o country_id
-merge m:1 country_id using "$raw\Gravity_dta_V202211\Countries_V202211.dta"
+merge m:1 country_id using "$raw/Gravity_dta_V202211/Countries_V202211.dta"
 drop _merge
 rename country_id country_id_o
 drop if last_year < 2001
@@ -142,7 +142,7 @@ save `gravity_vars_1'
 
 // more gravity variables: gap_lon lat_source landlocked_source
 	// merge missing gravity variables to source countries
-	use "$raw\cepii\geo_cepii.dta",clear
+	use "$raw/cepii/geo_cepii.dta",clear
 	keep iso3 country landlocked lat lon city_en cap
 	rename (landlocked lat lon) (landlocked_source lat_source lon_source)
 	// remove iso code duplicates
@@ -181,14 +181,14 @@ save `gravity_vars_1'
 
 // merge matching table iso3 ifs_code
 preserve
-	use "$raw\dta\matching_iso_ifscode.dta", clear
+	use "$raw/dta/matching_iso_ifscode.dta", clear
 	drop if iso3 == ""
-	save "$work\iso_ifscode.dta", replace
+	save "$work/iso_ifscode.dta", replace
 
 	// source country
 	restore 
 	rename iso3_o iso3
-	merge m:1 iso3 using "$work\iso_ifscode.dta"
+	merge m:1 iso3 using "$work/iso_ifscode.dta"
  	drop if _merge==2 // not in geo cepii: French Southern Territories, Guernsey, Isle of Man, Jersey, US Virgin Islands, Kosovo
 	drop _merge country
 	rename iso3 iso3_source /*origin country = source country*/
@@ -197,7 +197,7 @@ preserve
 
 	// host country
 	rename iso3_d iso3
-	merge m:1 iso3 using "$work\iso_ifscode.dta"
+	merge m:1 iso3 using "$work/iso_ifscode.dta"
 	drop if _merge==2 // not in geo cepii: French Southern Territories, Guernsey, Isle of Man, Jersey, US Virgin Islands, Kosovo
 	drop _merge country
 	rename iso3 iso3_host /*destination country = host country*/
@@ -228,9 +228,9 @@ save "$work\gravity_vars.dta", replace
 
 
 // merge cpis and gravity vars
-merge 1:1 year source host using "$work\cpis_merge.dta"
+merge 1:1 year source host using "$work/cpis_merge.dta"
 drop _merge
-save "$work\data_gravity_update.dta", replace
+save "$work/data_gravity_update.dta", replace
 
 
 /*check
@@ -246,9 +246,9 @@ drop nval*
 //----------------------------------------------------------------------------//
 // 3. merge GDP
 //----------------------------------------------------------------------------//
-use "$work\iso_ifscode.dta", clear
+use "$work/iso_ifscode.dta", clear
 replace iso3 = "XKX" if iso3 == "XXK"
-merge 1:m iso3 using "$raw\dta\assembled_gdp_series_090623.dta"
+merge 1:m iso3 using "$raw/dta/assembled_gdp_series_090623.dta"
 keep if _merge == 3
 drop _merge
 keep ifscode gdp_current year iso3
@@ -261,7 +261,7 @@ replace gdp_current = . if gdp_current == 0
 
 // add GDP for Netherlands Antilles
 preserve
-	use "$work\ewn_gdp.dta", clear
+	use "$work/ewn_gdp.dta", clear
 	keep if source==353
 	drop country
  	tempfile gdp_353
@@ -279,21 +279,21 @@ preserve
  	tempfile gdp_host
 	save `gdp_host'
 restore
-merge 1:m source year using "$work\data_gravity_update.dta"
+merge 1:m source year using "$work/data_gravity_update.dta"
 drop _merge
 rename gdp_current gdp_source
 
 merge m:1 host year using `gdp_host'
 drop _merge
 rename gdp_current gdp_host
-save "$work\data_gravity_update.dta", replace
+save "$work/data_gravity_update.dta", replace
 
 
 
 //----------------------------------------------------------------------------//
 // 4. merge population from world bank WDI
 //----------------------------------------------------------------------------//
-import delimited "$raw\API_SP.POP.TOTL_DS2_en_csv_v2_4902028\API_SP.POP.TOTL_DS2_en_csv_v2_4902028.csv", clear
+import delimited "$raw/API_SP.POP.TOTL_DS2_en_csv_v2_4902028/API_SP.POP.TOTL_DS2_en_csv_v2_4902028.csv", clear
 keep v1 v2 v46-v66
 rename (v1 v2) (country_wdi iso3)
 drop in 1
@@ -306,7 +306,7 @@ rename v pop_wdi
 label var pop_wdi "population (from World Bank WDI)"
 replace pop_wdi = pop_wdi * 1000
 replace iso3 = "XXK" if iso3 =="XKX"
-merge m:1 iso3 using "$work\iso_ifscode.dta"
+merge m:1 iso3 using "$work/iso_ifscode.dta"
 keep if _merge == 3
 drop _merge
 drop iso3 country
@@ -327,7 +327,7 @@ drop country_wdi
 tempfile pop_source
 save `pop_source'
 	
-use "$work\data_gravity_update.dta", clear
+use "$work/data_gravity_update.dta", clear
 merge m:1 year source using `pop_source'
 drop _merge
 
@@ -352,7 +352,7 @@ drop pop_d pop_wdi*
 
 	// Guernsey - https://www.gov.gg/census
 	preserve
-		import excel "$raw\Guernsey_Historic_population_and_employment_data_(for_website).xlsx", clear
+		import excel "$raw/Guernsey_Historic_population_and_employment_data_(for_website).xlsx", clear
 		keep A B
 		drop if B == ""
 		destring A, replace
@@ -379,7 +379,7 @@ drop pop_d pop_wdi*
 	
 	// Jersey
 	preserve
-		import delimited "$raw\Jersey_total-population-annual-change-natural-growth-net-migration-per-year-with-midyear.csv", clear
+		import delimited "$raw/Jersey_total-population-annual-change-natural-growth-net-migration-per-year-with-midyear.csv", clear
 		keep year endofyearpopulationestimate
 		keep if year > 2000
 		rename endofyearpopulationestimate pop_jersey
@@ -483,7 +483,7 @@ fillin source host year
 	
 	// merge missing gravity variables
 	preserve
-		use "$raw\Zucman\data_gravity.dta", clear
+		use "$raw/Zucman/data_gravity.dta", clear
 		by source host, sort: gen nvals=_n==1
 		keep if nvals==1
 		drop nvals
@@ -662,9 +662,9 @@ fillin source host year
 
 // merge indicator for cpis-reporting countries
 preserve
-	use "$work\cpis_source.dta", clear
+	use "$work/cpis_source.dta", clear
 	rename source ifscode
-	merge 1:1 ifscode using "$raw\dta\matching_iso_ifscode.dta"
+	merge 1:1 ifscode using "$raw/dta/matching_iso_ifscode.dta"
 	drop if _merge == 2
 	keep our_code cpis
 	rename our_code source
@@ -678,7 +678,7 @@ drop _merge
 	// source countries
 	drop our_code
 	rename source our_code
-	merge m:1 our_code using "$raw\dta\matching_iso_ifscode.dta"
+	merge m:1 our_code using "$raw/dta/matching_iso_ifscode.dta"
 	drop if _merge == 2 // Curacao; Sint Maarten
 	rename our_code source
 	replace sourcename = country
@@ -687,7 +687,7 @@ drop _merge
 
 	// host countries
 	rename host our_code 
-	merge m:1 our_code using "$raw\dta\matching_iso_ifscode.dta"
+	merge m:1 our_code using "$raw/dta/matching_iso_ifscode.dta"
 	drop if _merge==2 // Curacao; Sint Maarten
 	rename our_code host
 	replace hostname=country
@@ -711,7 +711,7 @@ label var lat_source "latitude sce ctry"
 label var cpis "cpis reporter"
 
 order year source host sourcename eqasset debtasset hostname comlang_off col45 landlocked_source lat_source lat_host lon_host sifc_source gdp_source cpis gdppc_host gap_lon industrial logeqasset logdebtasset logdist loggap_gdp loggap_gdppc loggdppc_source logpop_source
-save "$work\data_gravity_update.dta", replace
+save "$work/data_gravity_update.dta", replace
 
 //----------------------------------------------------------------------------//
 
