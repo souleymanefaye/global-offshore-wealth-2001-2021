@@ -29,3 +29,6 @@ global tables "$root\tables"
 cd "$raw\Zucman"
 unzipfile "$raw\Zucman\data_gravity.zip", replace
 erase "$raw\Zucman\data_gravity.zip"
+cd "$raw\Gravity_dta_V202211"
+unzipfile "$raw\Gravity_dta_V202211\Gravity_dta_V202211.zip", replace
+erase "$raw\Gravity_dta_V202211\Gravity_dta_V202211.zip"
