@@ -38,29 +38,29 @@ do "$do/03-produce-output-tables/3_do_table_A3.do"
 // 4. BIS bilateral deposits
 
 // import bilateral deposits
-do "$do/04-bis-deposits-build/1a-import-bis"
+do "$do/04-bis-deposits-build/4a-import-bis"
 
 // construct bilateral deposits non-banks & all counterparty for 2001-2022
-do "$do/04-bis-deposits-build/1b-build-bis-01-22.do"
+do "$do/04-bis-deposits-build/4b-build-bis-01-22.do"
 
 // graph bilateral deposits non-banks
-do "$do/04-bis-deposits-build/1c-graph-bis.do"
+do "$do/04-bis-deposits-build/4c-graph-bis.do"
 
 // 5. Swiss fiduciary accounts
 
 // construct fiduciary accounts from SNB data
-do "$do/05-swiss-fiduciary-build/2a-build-fiduciary-87-22.do"
+do "$do/05-swiss-fiduciary-build/5a-build-fiduciary-87-22.do"
 
 // graph fiduciary accounts
-do "$do/05-swiss-fiduciary-build/2b-graph-fiduciary.do"	
+do "$do/05-swiss-fiduciary-build/5b-graph-fiduciary.do"	
 
 // 6. Merge BIS and Swiss data, Estimate countries offshore wealth amounts  
 
 // build bilateral data on offshore wealth
-do "$do/06-offshore-wealth-analysis/3a-build-offshore-01-22.do"
+do "$do/06-offshore-wealth-analysis/6a-build-offshore-01-22.do"
 
 // build country offshore wealth data 
-do "$do/06-offshore-wealth-analysis/3b-build-countries.do"
+do "$do/06-offshore-wealth-analysis/6b-build-countries.do"
 
 // graph offshore wealth estimates
-do "$do/06-offshore-wealth-analysis/3c-graph-offshore.do" 	
+do "$do/06-offshore-wealth-analysis/6c-graph-offshore.do" 	
