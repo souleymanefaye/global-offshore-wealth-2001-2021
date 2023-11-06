@@ -6,6 +6,14 @@ Contained within this replication package is a collection of code designed to ge
 
 The paper aims to construct homogeneous time series that capture global household offshore financial wealth across more than 200 countries, from 2001 to 2021, a period marked by substantial international efforts to combat offshore tax evasion. It then examines the shifts in both the geographical location and ownership of offshore wealth. Furthermore, the study investigates the Common Reporting Standard (CRS) and the automatic exchange of information, drawing implications for the global economy. The research also elucidates the observed trends, particularly the transition toward increased ownership by middle- and lower-income countries, while high-income nations experience a corresponding decline. Additionally, it highlights the shift from Switzerland to Asian financial centers as the preferred offshore wealth locations.
 
-% ## Data
+## Data
 
-% dd
+## Computational requirements
+
+## Description of programs
+
+## Instructions for replicators
+
+## List of tables and programs
+
+## References
