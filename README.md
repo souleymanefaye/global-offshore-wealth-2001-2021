@@ -67,3 +67,6 @@ We utilize the country breakdown of fiduciary deposits on the liability side fro
 ## List of tables and programs
 
 ## References
+ Bertaut, Carol C. and Tryon, Ralph, Monthly Estimates of U.S. Cross-Border Securities Positions (November 2007). FRB International Finance Discussion Paper No. 910.  
+ Carol C. Bertaut & Ruth A. Judson, 2014. "Estimating U.S. Cross-Border Securities Positions: New Data and New Methods". International Finance Discussion Papers 1113, Board of Governors of the Federal Reserve System (U.S.).   
+ Thierry Mayer & Soledad Zignago , 2011. "Notes on CEPII’s distances measures: The GeoDist database". CEPII Working Paper 2011- 25 , December 2011 , CEPII.
