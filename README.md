@@ -10,7 +10,7 @@ The paper aims to construct homogeneous time series that capture global househol
 
 **Locational Banking Statistics from the Bank for International Settlements (BIS)**
 
-Data on the country breakdown of cross-border positions by nationality of reporting banks are publicly available in the BIS website at https://www.bis.org/statistics/full_data_sets.htm. The data are downloaded by the file 4a-import-bis.do  
+Data on the country breakdown of cross-border positions by nationality of reporting banks are publicly available in the BIS website at https://www.bis.org/statistics/full_data_sets.htm. The data are downloaded by the file [4a-import-bis.do](programs/04-bis-deposits-build/4a-import-bis.do)
 :warning: From January 2024 on, the data will not longer appear in the link provided above, as it will be disseminated through the [BIS data portal](https://data.bis.org/bulkdownload).   
 
 ## Computational requirements
