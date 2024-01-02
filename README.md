@@ -1,6 +1,4 @@
-# Global Offshore Wealth, 2001 - 2021
-
-### Work in Progress
+# Global Offshore Wealth, 2001 - 2021 (Work in Progress)
 
 Replication package for "Global Offshore Wealth, 2001 - 2021", by Souleymane Faye, Sarah Godar, and Gabriel Zucman.
 
