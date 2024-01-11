@@ -15,6 +15,7 @@ cap log close
 // 1. Import and merge data sources
 
 // reproduce and extend the dataset "data_gravity.dta"
+mkdir "$work"
 do "$do/01-gravity-data-build\1a_import_EWN.do"
 do "$do/01-gravity-data-build\1b_rebuild_gravity_dataset.do"
 save "$work/data_gravity_update.dta", replace
@@ -31,6 +32,7 @@ do "$do/02-bilateral-portfolio-assets-matrices/2_do_full_matrices.do"
 // 3. Produce output tables
 
 // produce output tables
+mkdir "$tables"
 do "$do/03-produce-output-tables/3_do_table_A1.do"
 do "$do/03-produce-output-tables/3_do_table_A2.do"
 do "$do/03-produce-output-tables/3_do_table_A3.do"
@@ -44,6 +46,7 @@ do "$do/04-bis-deposits-build/4a-import-bis"
 do "$do/04-bis-deposits-build/4b-build-bis-01-22.do"
 
 // graph bilateral deposits non-banks
+mkdir "$fig"
 do "$do/04-bis-deposits-build/4c-graph-bis.do"
 
 // 5. Swiss fiduciary accounts
