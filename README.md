@@ -84,9 +84,9 @@ The GDP variables and population [WDI](https://databank.worldbank.org/source/wor
   - `programs/01-gravity-data-build`, which uses and extends the CEPII gravity dataset (Conte, M., P. Cotterlaz and T. Mayer, 2022).
   - `programs/02-bilateral-portfolio-assets-matrices`, which constructs the exhaustive matrices of all identifiable bilateral portfolio assets starting from the CPIS and using a gravity-like model of bilateral portfolio holdings to derive the bilateral claims of non-CPIS countries.
   - `programs/03-produce-output-tables`, which creates Table A1 "Global Cross-Border Securities Assets" (total assets and corrections), Table A2 "Global Cross-Border Securities Liabilities", and Table A3 "Global Discrepancy Between Cross-Border Securities Assets and Liabilities" (Zucman, 2013).
-  - `programs/04-bis-deposits-build`, develops a comprehensive dataset on bilateral bank deposits using data from the Bank for International Settlements.
-  - `programs/05-swiss-fiduciary-build`, forms a homogeneous dataset of foreign-owned Swiss fiduciary deposits based on data from the Swiss National Bank.
-  - `programs/06-offshore-wealth-analysis`, merges BIS and SNB sources and generates estimates, figures, and tables on the country-level analysis of offshore wealth.
+  - `programs/04-bis-deposits-build`, which develops a comprehensive dataset on bilateral bank deposits using data from the Bank for International Settlements.
+  - `programs/05-swiss-fiduciary-build`, which forms a homogeneous dataset of foreign-owned Swiss fiduciary deposits based on data from the Swiss National Bank.
+  - `programs/06-offshore-wealth-analysis`, which merges BIS and SNB sources and generates estimates, figures, and tables on the country-level analysis of offshore wealth.
     
 
 ## Instructions for replicators
