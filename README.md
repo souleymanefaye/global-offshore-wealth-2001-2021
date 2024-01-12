@@ -90,7 +90,7 @@ The GDP variables and population [WDI](https://databank.worldbank.org/source/wor
     
 
 ## Instructions for replicators
-- Update the $root global macro in the file located at `programs/00-master/0a-setup.do` to match the directory path of your project.
+- Update the `$root` global macro in the file located at `programs/00-master/0a-setup.do` to match the directory path of your project.
 - Execute the script `programs/00-master/0b-run.do`.
 
 ### Programs features
