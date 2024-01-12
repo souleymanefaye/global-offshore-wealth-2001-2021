@@ -8,6 +8,9 @@ This replication package includes a collection of code designed to generate coun
 
 The companion paper seeks to construct consistent time series data, capturing the global household offshore financial wealth in over 200 countries from 2001 to 2021. This period is noteworthy for substantial international efforts to curtail offshore tax evasion. The study reproduces and extends the analysis made by Zucman (2013) and Alstadsaeter, Johannesen & Zucman (2018). It examines shifts in both the geographic location and ownership of offshore wealth. Subsequently, the paper delves into the impact of the Common Reporting Standard (CRS) and other forms of automatic exchange of information, drawing their implications for the global economy. The research elucidates notable trends, such as the increasing participation of middle- and lower-income countries in offshore wealth, in contrast to a decline among high-income nations. Additionally, it highlights the shift in preferred locations for offshore wealth, moving from Switzerland to Asian financial centers.
 
+Users who wish to access the data are advised to download the file named `FGZ2023Data.xlsx`. Alternatively, the data is available for retrieval from the [Offshore Financial Wealth section on the Atlas of the Offshore World website](https://atlas-offshore.world/dataset/offshore-financial). 
+Those seeking to replicate this study can find further details below. The methodology for constructing the time series is comprehensively explained in the paper's online appendix.
+
 ## Data
 
 **CEPII Gravity database**
