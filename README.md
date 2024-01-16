@@ -99,6 +99,33 @@ The GDP variables and population [WDI](https://databank.worldbank.org/source/wor
 ### Programs features
 
 ## List of tables and programs
+| Table or Figure name | Program | File |
+| :--------------------: | :-------: | :----: |
+| Figure 1 | `6c-graph-offshore.do` | world-offshore-gdp-2001-2021.pdf | 
+| Figure 2 | `6c-graph-offshore.do` | offshore-location-global-wealth.pdf | 
+| Figure 3 | `6c-graph-offshore.do` | ofw-owned-income-level-total-ofw.pdf |
+| Figure 4 | `6c-graph-offshore.do` | countries-offshore-gdp-2007-2021.pdf | 
+| Figure 5 | `5b-graph-fiduciary.do` | update-swiss-fiduciary-87-22.pdf | 
+| Figure 6 |  |  | 
+| Table A1 | `3_do_table_A1.do` | FGZ2023Data.xlsx |
+| Table A2 | `3_do_table_A1.do` | FGZ2023Data.xlsx |
+| Table A3 | `3_do_table_A1.do` | FGZ2023Data.xlsx | 
+| Table A4 |  | FGZ2023Data.xlsx | 
+| Table A5 | `4b-build-bis-01-22.do` | FGZ2023Data.xlsx | 
+| Table A5b |  | FGZ2023Data.xlsx | 
+| Table A5c |  | FGZ2023Data.xlsx | 
+| Table A6a |  | FGZ2023Data.xlsx | 
+| Table A6b | `6b-build-countries.do` | FGZ2023Data.xlsx | 
+| Table A7 | `6b-build-countries.do` | FGZ2023Data.xlsx | 
+| Table A8 | `5b-graph-fiduciary.do`  | FGZ2023Data.xlsx | 
+| Table A9 | `5b-graph-fiduciary.do` | FGZ2023Data.xlsx | 
+| Table A10 |  | FGZ2023Data.xlsx | 
+| Figure A1 | `6c-graph-offshore.do` | offshore_location_world_gdp.pdf | 
+| Figure A2 | `6c-graph-offshore.do` | ofw_owned_incomelevel_gdp.pdf | 
+| Figure A3 | `6c-graph-offshore.do` | share-gdp-income-country-groups.pdf | 
+| Figure A4 | `6c-graph-offshore.do` | offshore-gdp-AJZvsFGZ.pdf | 
+| Figure A5 | `4c-graph-bis.do` | shche-06-07.pdf | 
+| Figure A6 | `4c-graph-bis.do` | shche-22.pdf | 
 
 ## References
 
