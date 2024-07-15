@@ -131,7 +131,7 @@ replace share_KY = 1 if saver == "US" & bank == "KY" & saver ~= "5J"
 
 forvalues i=2001/2023 {
 preserve 
-keep if bank == "KY" & year == `i'
+keep if bank == "KY" & year == `i' & saver == "5J"
 local AlldepKY`i' = dep
 restore
 }
@@ -361,7 +361,7 @@ replace share_KY = 1 if saver == "US" & bank == "KY"
 
 forvalues i=2001/2023 {
 preserve 
-keep if bank == "KY" & year == `i'
+keep if bank == "KY" & year == `i' & saver == "5J"
 local AlltotdepKY`i' = totdep
 restore
 }
