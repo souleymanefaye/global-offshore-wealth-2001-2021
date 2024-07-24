@@ -59,7 +59,7 @@ forvalues i = 2001/2022 {
 			}
 			gen depAS = dep1N + depMY - depKY - depGG - depIM - depJE - depPA
 			label variable depAS ///
-			"Deposit in Asian haven: HK, Singapore, Macao, Malaysia, Bahrain, Bahamas, Bermuda, Netherlands Antilles" 
+			"Deposit in Asian haven: HK, Singapore, Macao, Malaysia, Bahrain, Bahamas, Bermuda, Netherlands Antilles"  // + Curacao? + Do we explain anywhere why Caribbean tax havens are in Asia??
 			gen interbankAS = interbankMY
 			label variable interbankAS ///
 			"Interbank deposits in Asian havens: only country available is Malaysia"
@@ -70,7 +70,7 @@ forvalues i = 2001/2022 {
 			clear firstrow cellrange(A3:W25) sheet(sharehouseholddep)
 			keep if year == `i' 
 			merge 1:m year using `bisbilat`i'', nogenerate
-			gen AS = 0.7
+			gen AS = 0.7												// Assumed household share of Asian tax haven deposits is 0.7
 			foreach bank in CH AS GG IM JE PA LU CY MO MY KY BE AT BH BM BS ///
 			HK SG GB US CL AN CW { 
 				replace dep`bank' = `bank'*dep`bank' if year == `i' 
@@ -81,7 +81,7 @@ forvalues i = 2001/2022 {
 				* Asian haven is done above from 1N
 				foreach deposit in dep interbank {
 					gen `deposit'CR = `deposit'KY + `deposit'PA + ///
-					`deposit'CL + `deposit'US
+					`deposit'CL + `deposit'US								// Why is Chile here? Was not mentioned in FGZ. Either correct here or in FGZ
 					label variable `deposit'CR "Deposits in Caribbean havens"
 					gen `deposit'EU =`deposit'GG + `deposit'IM + ///
 					`deposit'JE + `deposit'LU + `deposit'AT + `deposit'BE ///
@@ -194,7 +194,7 @@ replace africa=1 if iso3=="EGY"|iso3=="IRN"|iso3=="IRQ"|iso3=="ISR"| ///
 iso3=="JOR"|iso3=="SYR"|iso3=="YEM"
 replace africa = 0 if iso3 == "DJI" | iso3 == "GMB" 
 replace haven = 1 if iso3 == "DJI" | iso3 == "GMB" // 
-* Gambia becoming tax haven: http://www.economist.com/news/finance-and-
+* Gambia becoming tax haven: http://www.economist.com/news/finance-and-								// What is the implication of listing these countries as tax havens? Is it mentioned in FGZ?
 * economics/21584019-gambia-looks-join-beleaguered-club-trawling-business. 
 * Djibouti: http://www.lseg.com/sites/default/files/content/
 * portogallo%20appendix%20A.pdf
@@ -216,7 +216,7 @@ replace asia = 0 if iso3 == "BRN" | iso3 == "MDV" | iso3 == "SLB" | ///
 iso3 == "PNG" 
 replace haven = 1 if iso3 == "BRN" | iso3 == "MDV" | iso3 == "SLB" | ///
 iso3 == "PNG"
-* Add Swiss fiduciary deposits (for consistency with BIS and HSBC): CHE = 55% of CHE+LIE
+* Add Swiss fiduciary deposits (for consistency with BIS and HSBC): CHE = 55% of CHE+LIE				// What is happening here? Do we keep Swiss deposits owned by Swiss residents?
 expand 2 if iso3=="LIE", gen(che)
 replace iso3="CHE" if che==1
 replace ifscode=146 if che==1 
@@ -333,11 +333,11 @@ foreach saver in GB CH BE NL IE US {
 					local stddep`y'`b'= 0
 					if "`y'" != "fidu" {
 						* Takes into account higher use of shell by Europeans 
-						* with Swiss accounts post STD   
+						* with Swiss accounts post Savings Tax Directive (STD)   				// state assumption: Why 0.35?
 						if "`b'" == "CH" local stddep`y'`b'= ///
 						0.35*`tothaven`y'`b''   
 						}     
-						* Assuming GCC use shell 
+						* Assuming GCC use shell 								// Not clear why reference to GCC - isn't the correction made for all regional groups: less than proportionally for all countries and more than proportionally for EU countries?
 						replace sh_`y'= ///
 						rawsh_`y'*(1+(`tothaven`y'`b''-`stddep`y'`b'')/ ///
 						(`tot`y'`b''-`tothaven`y'`b'')+`stddep`y'`b''/ ///
@@ -350,7 +350,7 @@ foreach saver in GB CH BE NL IE US {
 						}
 						}
 						save "$work/offshore`i'", replace
-						* Compute share BIS deposits in all tax havens 
+						* Compute share BIS deposits in all tax havens 	
 						* (needs to be done post allocation of shell)
 						tempfile total
 						keep bank iso3saver sh_bis amt_bis amt_inter sh_inter
@@ -362,11 +362,11 @@ foreach saver in GB CH BE NL IE US {
 							}
 							gen sh_bisOC = (sh_bisAS * `totbisAS' + ///
 							sh_bisCR * `totbisCR' + sh_bisEU * `totbisEU') ///
-							/ (`totbisAS' + `totbisCR' + `totbisEU')
+							/ (`totbisAS' + `totbisCR' + `totbisEU')						// add comment share "OC": all tax havens other than Switzerland
 							gen sh_bisHA = (sh_bisOC * (`totbisAS' + ///
 							`totbisCR' + `totbisEU') + sh_bisCH * ///
 							`totbisCH') / (`totbisAS' + `totbisCR' + ///
-							`totbisEU' + `totbisCH')
+							`totbisEU' + `totbisCH')								 // add comment share "HA" all tax havens 
 							* uncorrected amounts, just as memo item
 							gen amt_bisOC = amt_bisAS + amt_bisCR + amt_bisEU 
 							gen amt_bisHA = amt_bisOC + amt_bisCH
@@ -391,7 +391,7 @@ foreach saver in GB CH BE NL IE US {
 							russia asia africa europe eu* haven  {
 								replace `var'=`var'[_n-1] if bank=="HA"
 								replace `var'=`var'[_n-2] if bank=="OC"
-								}
+								}									// What is happening here? 
 								save `total', replace
 								use "$work/offshore`i'", clear
 								merge 1:1 bank iso3saver using `total', ///
@@ -409,7 +409,7 @@ foreach saver in GB CH BE NL IE US {
 								sort namesaver
 								save "$work/offshore`i'", replace
  
-**-------------------------------- III.2 - -----------------------------------**
+**-------------------------------- III.2 - -----------------------------------**							// What is the purpose of this section?
 preserve
 keep if bank == "CH"
 	gen continent = 1*africa + 2*europe + 3*gcc + 4*asia + 5*russia + ///
