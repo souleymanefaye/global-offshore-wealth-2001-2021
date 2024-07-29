@@ -59,7 +59,7 @@ forvalues i = 2001/2022 {
 			}
 			gen depAS = dep1N + depMY - depKY - depGG - depIM - depJE - depPA
 			label variable depAS ///
-			"Deposit in Asian haven: HK, Singapore, Macao, Malaysia, Bahrain, Bahamas, Bermuda, Netherlands Antilles"  // + Curacao? + Do we explain anywhere why Caribbean tax havens are in Asia??
+			"Deposit in Asian haven: HK, Singapore, Macao, Malaysia, Bahrain, Bahamas, Bermuda, Netherlands Antilles/Curacao"  // Do we explain anywhere why Caribbean tax havens are in Asia??
 			gen interbankAS = interbankMY
 			label variable interbankAS ///
 			"Interbank deposits in Asian havens: only country available is Malaysia"
@@ -194,7 +194,7 @@ replace africa=1 if iso3=="EGY"|iso3=="IRN"|iso3=="IRQ"|iso3=="ISR"| ///
 iso3=="JOR"|iso3=="SYR"|iso3=="YEM"
 replace africa = 0 if iso3 == "DJI" | iso3 == "GMB" 
 replace haven = 1 if iso3 == "DJI" | iso3 == "GMB" // 
-* Gambia becoming tax haven: http://www.economist.com/news/finance-and-								// What is the implication of listing these countries as tax havens? Is it mentioned in FGZ?
+* Gambia becoming tax haven: http://www.economist.com/news/finance-and-								// What is the implication of listing these countries as tax havens? Not mentioned in FGZ, not included in revised version.
 * economics/21584019-gambia-looks-join-beleaguered-club-trawling-business. 
 * Djibouti: http://www.lseg.com/sites/default/files/content/
 * portogallo%20appendix%20A.pdf
